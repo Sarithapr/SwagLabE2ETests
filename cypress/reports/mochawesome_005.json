@@ -1,0 +1,106 @@
+{
+  "stats": {
+    "suites": 1,
+    "tests": 1,
+    "passes": 1,
+    "pending": 0,
+    "failures": 0,
+    "start": "2025-08-24T21:38:53.928Z",
+    "end": "2025-08-24T21:38:56.475Z",
+    "duration": 2547,
+    "testsRegistered": 1,
+    "passPercent": 100,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false
+  },
+  "results": [
+    {
+      "uuid": "c3a5b83f-4eae-4fe4-8988-6495d49cdc30",
+      "title": "",
+      "fullFile": "cypress/e2e/2_CartPage.cy.js",
+      "file": "cypress/e2e/2_CartPage.cy.js",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "2c6c5d9a-db11-439e-9cab-173266b16344",
+          "title": "Cart Page tests",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "should add all items in the cart",
+              "fullTitle": "Cart Page tests should add all items in the cart",
+              "timedOut": null,
+              "duration": 2483,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.inventoryitemsaddremove();\ncy.get(\"a.shopping_cart_link>span\").should('have.text', '6');\n//clicking cart\ncy.getSelector('shopping-cart-badge').click();\ncy.url().should('include', '/cart.html');\ncy.get('.cart_item .cart_quantity').each($el => {\n  cy.wrap($el).should('have.text', '1');\n});\ncy.get(\".cart_item\").find('button').eq(0).as(\"removeBackpack\");\ncy.get(\"@removeBackpack\").should('have.text', 'Remove');\ncy.get(\"@removeBackpack\").click();\ncy.get(\"a.shopping_cart_link>span\").should('have.text', '5');\n//remove all items from the cart\ncy.get(\".cart_item\").find('button').each($el => {\n  cy.wrap($el).click();\n});\ncy.contains('Remove').should('not.exist');\ncy.getSelector('continue-shopping').click();\ncy.url().should('include', '/inventory.html');",
+              "err": {},
+              "uuid": "51c716c3-713a-4fd2-b6ba-2d727c76e91b",
+              "parentUUID": "2c6c5d9a-db11-439e-9cab-173266b16344",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "51c716c3-713a-4fd2-b6ba-2d727c76e91b"
+          ],
+          "failures": [],
+          "pending": [],
+          "skipped": [],
+          "duration": 2483,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "7.2.0"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": false,
+        "reportFilename": "mochawesome",
+        "saveHtml": false,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": true
+      },
+      "version": "7.1.3"
+    },
+    "marge": {
+      "options": {
+        "reportDir": "cypress/reports",
+        "overwrite": false,
+        "html": false,
+        "json": true,
+        "setupNodeEvents": "[Function setupNodeEvents]"
+      },
+      "version": "6.2.0"
+    }
+  }
+}

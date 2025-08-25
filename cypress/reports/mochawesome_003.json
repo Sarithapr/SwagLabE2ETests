@@ -1,0 +1,163 @@
+{
+  "stats": {
+    "suites": 1,
+    "tests": 4,
+    "passes": 4,
+    "pending": 0,
+    "failures": 0,
+    "start": "2025-08-24T21:37:14.114Z",
+    "end": "2025-08-24T21:37:19.979Z",
+    "duration": 5865,
+    "testsRegistered": 4,
+    "passPercent": 100,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false
+  },
+  "results": [
+    {
+      "uuid": "95d7a582-a977-4a88-981d-75caf8b85f78",
+      "title": "",
+      "fullFile": "cypress/e2e/4_ProductsPage.cy.js",
+      "file": "cypress/e2e/4_ProductsPage.cy.js",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "3178445c-0f13-40a0-b253-7c2311742836",
+          "title": "Inventory Page tests",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "should load all menu items",
+              "fullTitle": "Inventory Page tests should load all menu items",
+              "timedOut": null,
+              "duration": 1498,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.get('#react-burger-menu-btn').click();\nsidebarLinks.forEach(link => {\n  cy.get(link.id).should('be.visible').and('have.text', link.text);\n  switch (link.text && link.text.trim() !== 'Logout') {\n    case \"All Items\":\n      cy.get(link.id).click();\n      cy.url().should('include', '/inventory.html');\n      break;\n    case \"About\":\n      cy.get(link.id).click();\n      cy.origin('https://saucelabs.com', () => {\n        cy.url().should('include', 'https://saucelabs.com/');\n        //cy.go('back');\n        // Optionally: Add more assertions or actions specific to the About page\n      });\n      cy.visit('/inventory.html');\n      break;\n    case \"Reset App State\":\n      cy.get(link.id).click();\n      cy.get(\"a.shopping_cart_link\").children('span').should('not.exist');\n      cy.url().should('include', '/inventory.html');\n      cy.get('#react-burger-cross-btn').click();\n      break;\n  }\n});\ncy.get('#inventory_sidebar_link').click();\ncy.url().should('include', '/inventory.html');",
+              "err": {},
+              "uuid": "1249e944-5f54-4eee-ad23-2540fb5ffa52",
+              "parentUUID": "3178445c-0f13-40a0-b253-7c2311742836",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "should add and remove all inventory items",
+              "fullTitle": "Inventory Page tests should add and remove all inventory items",
+              "timedOut": null,
+              "duration": 2004,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.inventoryitemsaddremove();\ncy.get(\"a.shopping_cart_link>span\").should('have.text', '6');\n// Remove all items from inventory page\ncy.inventoryitemsaddremove();\ncy.get(\"a.shopping_cart_link\").children('span').should('not.exist');\n// Go to cart and verify\ncy.get('.shopping_cart_link').click();\ncy.url().should('include', '/cart.html');\ncy.getSelector('secondary-header').should('have.text', 'Your Cart');\n// Optionally: Add logic to remove a single item from the cart if needed",
+              "err": {},
+              "uuid": "e5f271a8-6a9e-4e5d-b651-b7118f829d73",
+              "parentUUID": "3178445c-0f13-40a0-b253-7c2311742836",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "should check if the sorting is correct",
+              "fullTitle": "Inventory Page tests should check if the sorting is correct",
+              "timedOut": null,
+              "duration": 1374,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.get('.product_sort_container').select('za');\ngetItemNames().then(names => {\n  const sorted = [...names].sort((a, b) => b.localeCompare(a));\n  expect(names).to.deep.equal(sorted);\n});\ncy.get('.product_sort_container').select('az');\ngetItemNames().then(names => {\n  const sorted = [...names].sort((a, b) => a.localeCompare(b));\n  expect(names).to.deep.equal(sorted);\n});\ncy.get('.product_sort_container').select('lohi');\ngetItemPrices().then(prices => {\n  const sorted = [...prices].sort((a, b) => a - b);\n  expect(prices).to.deep.equal(sorted);\n});\ncy.get('.product_sort_container').select('hilo');\ngetItemPrices().then(prices => {\n  const sorted = [...prices].sort((a, b) => b - a);\n  expect(prices).to.deep.equal(sorted);\n});",
+              "err": {},
+              "uuid": "403cbf3e-1155-40d3-8398-d16731380713",
+              "parentUUID": "3178445c-0f13-40a0-b253-7c2311742836",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "should check if all items are displayed",
+              "fullTitle": "Inventory Page tests should check if all items are displayed",
+              "timedOut": null,
+              "duration": 891,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.get('.inventory_item').should('have.length', 6);\ncy.get('.inventory_item_name').each($el => {\n  expect($el.text().trim()).to.not.be.empty;\n});\ncy.get('.inventory_item_price').each($el => {\n  expect($el.text().trim()).to.match(/^\\$\\d+(\\.\\d{2})?$/);\n});",
+              "err": {},
+              "uuid": "4cab4019-2129-4317-905a-485934407e88",
+              "parentUUID": "3178445c-0f13-40a0-b253-7c2311742836",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "1249e944-5f54-4eee-ad23-2540fb5ffa52",
+            "e5f271a8-6a9e-4e5d-b651-b7118f829d73",
+            "403cbf3e-1155-40d3-8398-d16731380713",
+            "4cab4019-2129-4317-905a-485934407e88"
+          ],
+          "failures": [],
+          "pending": [],
+          "skipped": [],
+          "duration": 5767,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "7.2.0"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": false,
+        "reportFilename": "mochawesome",
+        "saveHtml": false,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": true
+      },
+      "version": "7.1.3"
+    },
+    "marge": {
+      "options": {
+        "reportDir": "cypress/reports",
+        "overwrite": false,
+        "html": false,
+        "json": true,
+        "setupNodeEvents": "[Function setupNodeEvents]"
+      },
+      "version": "6.2.0"
+    }
+  }
+}

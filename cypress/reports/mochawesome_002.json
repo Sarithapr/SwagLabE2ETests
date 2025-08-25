@@ -1,0 +1,106 @@
+{
+  "stats": {
+    "suites": 1,
+    "tests": 1,
+    "passes": 1,
+    "pending": 0,
+    "failures": 0,
+    "start": "2025-08-24T21:37:09.634Z",
+    "end": "2025-08-24T21:37:12.768Z",
+    "duration": 3134,
+    "testsRegistered": 1,
+    "passPercent": 100,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false
+  },
+  "results": [
+    {
+      "uuid": "a41eecf6-9f42-4d79-a22b-5da0d453d1bd",
+      "title": "",
+      "fullFile": "cypress/e2e/3_CheckoutPage.cy.js",
+      "file": "cypress/e2e/3_CheckoutPage.cy.js",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "cd74b113-fa80-423e-ae6b-b1787abe22e9",
+          "title": "Checkout Page tests",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "should add all items in the cart",
+              "fullTitle": "Checkout Page tests should add all items in the cart",
+              "timedOut": null,
+              "duration": 3075,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.inventoryitemsaddremove();\ncy.getSelector('shopping-cart-badge').click();\ncy.get('#checkout').click();\ncy.url().should('include', '/checkout-step-one.html');\ncy.getSelector('secondary-header').should('have.text', 'Checkout: Your Information');\ncy.get('#first-name').clear().type('Rahul');\ncy.get('#last-name').clear().type('Haridas');\ncy.getSelector('postalCode').clear().type('10245');\ncy.get('#continue').click();\ncy.url().should('include', '/checkout-step-two.html');\nfor (let i = 0; i < 5; i++) {\n  cy.get('.summary_info').children().eq(i).invoke('text').then(text => {\n    expect(text.trim()).to.equal(checkoutDetails[i]);\n  });\n}\n//to get itemtotal price\ncy.getSelector('inventory-item-price').then($text => {\n  console.log($text);\n  console.log(typeof $text);\n  console.log($text.innerText); //return undefined\n  console.log($text.text()); //concatenation fof all price as string with dollar sign\n  const itemsArr = Cypress._.map($text, el => parseFloat(el.innerText.replace('$', '').trim()));\n  console.log(itemsArr);\n  const itemTotal = Cypress._.sum(itemsArr);\n  console.log(itemTotal);\n  cy.get('.summary_subtotal_label').should('have.text', `Item total: $${itemTotal.toFixed(2)}`);\n  cy.get('.summary_total_label').invoke('text').then($text => {\n    console.log($text);\n    console.log($text.innerText);\n    console.log(typeof $text);\n    console.log($text.text);\n    const cleanText = $text.replace(/[^\\d.]/g, '').trim();\n    console.log(cleanText);\n    const totalPrice = parseFloat(cleanText);\n    console.log(totalPrice);\n    expect(totalPrice).to.be.greaterThan(itemTotal);\n    cy.log(`Item total:$${itemTotal.toFixed(2)}, Total Price: ${totalPrice}`);\n  });\n  /*const newJSarr = [...text].map(el=>parseFloat(el.innerText.replace('$','').trim()))\n  console.log(newJSarr);\n  const sum = newJSarr.reduce((acc, curr) => acc + curr, 0)\n  console.log(sum);*/\n  //  text.each((i,el)=>{\n  //console.log(\"el.innerText\",el.innerText)\n  //console.log(parseFloat(el.innerText.replace('$','').trim()))\n  //var sum = 0;\n  //prices.push(el.innerText);\n  //Cypress._.map(text, (el) => {\n  // console.log(parseFloat(el.innerText.replace('$','').trim()))\n  //})\n  //console.log('All prices:', prices);\n  //console.log(el.text);\n  //console.log(parseFloat(el.text.trim().replace('$', '')));\n  //sum=sum+parseFloat(el.text.trim().replace('$', '')));\n  //console.log(el.text.trim());\n  //console.log(parseFloat(el.trim().replace('$', '')));\n  //sum=sum+parseFloat(el.trim().replace('$', ''));\n  //  })\n  // console.log(parseFloat(text.trim().replace('$', '')));\n});\ncy.url().should('include', '/checkout-step-two.html');\ncy.getSelector('finish').click();\ncy.url().should('include', '/checkout-complete.html');\ncy.getSelector('secondary-header').should('have.text', 'Checkout: Complete!');\ncy.get(\"h2.complete-header\").should('have.text', 'Thank you for your order!');\ncy.getSelector(\"back-to-products\").click();\ncy.url().should('include', '/inventory.html');\ncy.get(\"a.shopping_cart_link\").children('span').should('not.exist');",
+              "err": {},
+              "uuid": "dfecbcb4-f4af-4f38-86a1-1480fdac8d18",
+              "parentUUID": "cd74b113-fa80-423e-ae6b-b1787abe22e9",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "dfecbcb4-f4af-4f38-86a1-1480fdac8d18"
+          ],
+          "failures": [],
+          "pending": [],
+          "skipped": [],
+          "duration": 3075,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "7.2.0"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": false,
+        "reportFilename": "mochawesome",
+        "saveHtml": false,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": true
+      },
+      "version": "7.1.3"
+    },
+    "marge": {
+      "options": {
+        "reportDir": "cypress/reports",
+        "overwrite": false,
+        "html": false,
+        "json": true,
+        "setupNodeEvents": "[Function setupNodeEvents]"
+      },
+      "version": "6.2.0"
+    }
+  }
+}
