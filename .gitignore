@@ -6,7 +6,7 @@ npm-debug.log
 tmp
 .projects
 *.orig
-
+package-lock.json
 screenshots
 videos
 out.js
