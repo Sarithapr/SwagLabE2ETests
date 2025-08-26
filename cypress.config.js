@@ -1,5 +1,4 @@
 const { defineConfig } = require("cypress");
-const codeCoverageTask = require('@cypress/code-coverage/task');
 module.exports = defineConfig({
   projectId: 'jztk3s',
   e2e: {
@@ -11,7 +10,6 @@ module.exports = defineConfig({
       html: true,
       json: false,
     setupNodeEvents(on, config) {
-      codeCoverageTask(on, config);
       return config;
     },
   },
