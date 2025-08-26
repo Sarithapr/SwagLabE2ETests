@@ -5,8 +5,7 @@
   "scripts": {
     "cy:run": "cypress run",
     "cy:open": "cypress open",
-    "report:merge": "mkdir -p cypress/reports/assets && npx mochawesome-merge cypress/reports/assets/*.json > cypress/reports/assets/report.json",
-    "report:generate": "npx marge cypress/reports/report.json --reportDir cypress/reports --inline",
+    "report:merge": "npx mochawesome-merge cypress/reports/mochawesome*.json > cypress/reports/merged-report.json",
     "test": "npm run cy:run && npm run report:merge && npm run report:generate"
   },
   "author": "",
