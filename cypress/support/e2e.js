@@ -16,7 +16,6 @@
 // Import commands.js using ES2015 syntax:
 import './commands';
 import '../fixtures/users.json';
-import '@cypress/code-coverage/support';
 
 /*beforeEach(function () {
     cy.fixture('users').as('userData');
