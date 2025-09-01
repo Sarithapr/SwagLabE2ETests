@@ -58,3 +58,6 @@ npx cypress run
   ```
 
   The HTML report will be available in the `mochawesome-report` directory.
+
+## WIP
+POM for cypress tests
