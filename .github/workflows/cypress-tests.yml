@@ -5,7 +5,7 @@ on:
     branches: [ main ]
   pull_request:
     branches: [ main ]
-  workflow_dispatch: 
+  workflow_dispatch:
 
 jobs:
   cypress-docker:
@@ -19,6 +19,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      # Optional: only needed if your app requires building
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
@@ -32,11 +33,11 @@ jobs:
 
       - name: Run Cypress tests (${{ matrix.browser }})
         run: |
-           if [ "${{ matrix.browser }}" = "firefox" ]; then
-              npx cypress run --browser firefox --headless --no-sandbox
+          if [ "${{ matrix.browser }}" = "firefox" ]; then
+            npx cypress run --browser firefox --headless --no-sandbox
           else
-              npx cypress run --browser ${{ matrix.browser }} --headless
-           fi
+            npx cypress run --browser ${{ matrix.browser }} --headless
+          fi
 
       - name: Upload Cypress screenshots (${{ matrix.browser }})
         if: always()
