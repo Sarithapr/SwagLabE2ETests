@@ -27,8 +27,16 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Show Cypress info
+        run: npx cypress info
+
       - name: Run Cypress tests (${{ matrix.browser }})
-        run: npx cypress run --browser ${{ matrix.browser }} --headless
+        run: |
+           if [ "${{ matrix.browser }}" = "firefox" ]; then
+              npx cypress run --browser firefox --headless --no-sandbox
+          else
+              npx cypress run --browser ${{ matrix.browser }} --headless
+           fi
 
       - name: Upload Cypress screenshots (${{ matrix.browser }})
         if: always()
