@@ -59,5 +59,9 @@ npx cypress run
 
   The HTML report will be available in the `mochawesome-report` directory.
 
+## Improvements:
+
+Instead of checking the items in the cart is 6(hard coded value) once all item are added, we can access API calls using cy.request and get data dynamically. But this website doesnt show the calls as its static data so hardcoded the value.
+
 ## WIP
 POM for cypress tests
